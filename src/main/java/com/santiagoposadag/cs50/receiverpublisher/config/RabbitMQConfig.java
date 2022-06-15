@@ -6,16 +6,20 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-
     public static final String GENERAL_QUEUE = "action.general";
     public static final String SELL_QUEUE = "action.sell";
     public static final String BUY_QUEUE = "action.buy";
+//    client queque
+    public static final String CLIENT_QUEUE = "client.create";
 
     public static final String EXCHANGE = "actions_exchange";
 
     public static final String GENERAL_ROUTING_KEY = "routingKey.*";
     public static final String SELL_ROUTING_KEY = "routingKey.sell";
     public static final String BUY_ROUTING_KEY = "routingKey.buy";
+    //    client routing key
+    public static final String CLIENT_ROUTING_KEY = "routingKey.createClient";
+
 
     @Bean
     public Queue getGeneralQueue() {
@@ -30,6 +34,10 @@ public class RabbitMQConfig {
     @Bean
     public Queue getBuyQueue() {
         return new Queue(BUY_QUEUE);
+    }
+
+    public Queue getClientQueue() {
+        return new Queue(CLIENT_QUEUE);
     }
 
     @Bean
@@ -50,6 +58,10 @@ public class RabbitMQConfig {
     @Bean
     public Binding BindingToBuyQueue() {
         return BindingBuilder.bind(getBuyQueue()).to(getTopicExchange()).with(BUY_ROUTING_KEY);
+    }
+
+    public Binding BindingToClientQueue() {
+        return BindingBuilder.bind(getClientQueue()).to(getTopicExchange()).with(CLIENT_ROUTING_KEY);
     }
 
 }
