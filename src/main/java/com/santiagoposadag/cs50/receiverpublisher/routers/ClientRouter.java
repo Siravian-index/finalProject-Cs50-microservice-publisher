@@ -24,14 +24,14 @@ public class ClientRouter {
 
 
     @Bean
-    public RouterFunction<ServerResponse> postActionRoute(PostClientToRabbitUseCase post){
+    public RouterFunction<ServerResponse> postClientRoute(PostClientToRabbitUseCase post){
         Function<ClientDTO, Mono<ServerResponse>> executor =
                 clientDTO -> post.apply(clientDTO)
                         .flatMap(result -> ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(POST("/SendAction")
+        return route(POST("/createClient")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(ClientDTO.class).flatMap(executor));
 
