@@ -19,7 +19,7 @@ public class RabbitMQConfig {
     public static final String SELL_ROUTING_KEY = "routingKey.sell";
     public static final String BUY_ROUTING_KEY = "routingKey.buy";
     //    client routing key
-    public static final String CLIENT_ROUTING_KEY = "routingKey.createClient";
+    public static final String CLIENT_ROUTING_KEY = "clientKey.create";
 
 
     @Bean

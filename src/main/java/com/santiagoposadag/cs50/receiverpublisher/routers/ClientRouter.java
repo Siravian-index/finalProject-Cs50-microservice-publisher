@@ -1,11 +1,7 @@
 package com.santiagoposadag.cs50.receiverpublisher.routers;
 
 import com.santiagoposadag.cs50.receiverpublisher.dto.ClientDTO;
-import com.santiagoposadag.cs50.receiverpublisher.dto.CryptoCurrencyDto;
 import com.santiagoposadag.cs50.receiverpublisher.usecases.PostClientToRabbitUseCase;
-import com.santiagoposadag.cs50.receiverpublisher.usecases.PostMessageToRabbitUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -31,9 +27,10 @@ public class ClientRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(POST("/createClient")
+        return route(POST("/client")
                         .and(accept(MediaType.APPLICATION_JSON)),
-                request -> request.bodyToMono(ClientDTO.class).flatMap(executor));
+                request -> request.bodyToMono(ClientDTO.class)
+                        .flatMap(executor));
 
     }
 }
